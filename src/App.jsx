@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import { getApiConfiguration } from "./features/homeSlice";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/Home";
-import Details from "./pages/details/Details";
 import SearchResult from "./pages/searchResult/SearchResult";
 import ErrorPage from "./pages/404/ErrorPage";
 
@@ -31,7 +30,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/:mediaType/:id" element={<Details />} />
           <Route path="/search/:query" element={<SearchResult />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
