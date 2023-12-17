@@ -28,6 +28,12 @@ const HeroBanner = () => {
     }
   };
 
+  const handleButton = () => {
+    if (query?.trim()?.length > 0) {
+      navigate(`/search/${query}`);
+    }
+  };
+
   return (
     <div className="heroBanner">
       {!loading && (
@@ -38,12 +44,9 @@ const HeroBanner = () => {
       <div className="opacity-layer"></div>
 
       <ContentWrapper>
-        {/* <div className="opacity-layer"></div> */}
         <div className="heroBannerContent">
           <span className="title">Welcome</span>
-          <span className="subTitle">
-            Explore movies and TV movies.
-          </span>
+          <span className="subTitle">Explore movies and TV movies.</span>
           <div className="searchInput">
             <input
               type="text"
@@ -52,7 +55,7 @@ const HeroBanner = () => {
               onChange={(e) => setQuery(e.target.value)}
               onKeyUp={searchQueryHandler}
             />
-            <button>Search</button>
+            <button onClick={handleButton}>Explore</button>
           </div>
         </div>
       </ContentWrapper>

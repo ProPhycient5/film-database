@@ -1,0 +1,25 @@
+.tabWrapper {
+    width: 100%;
+    overflow-x: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+
+    .tab {
+        padding: 10px 20px;
+        margin-right: 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #ffffff;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        &.active {
+            background: var(--gradient);
+            color: #fff;
+        }
+    }
+}

@@ -19,17 +19,17 @@ export const fetchDataFromApi = async (url, params) => {
   }
 };
 
-const fixed_url =
-  "https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d";
+// const fixed_url =
+//   "https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d";
 
-export const fetchMovieData = async (param = "") => {
-  try {
-    const data = axios.get(fixed_url + param);
-    return data;
-  } catch (err) {
-    return err;
-  }
-};
+// export const fetchMovieData = async (param = "") => {
+//   try {
+//     const data = axios.get(fixed_url + param);
+//     return data;
+//   } catch (err) {
+//     return err;
+//   }
+// };
 
 // https://api.themoviedb.org/3/discover/movie?api_key=2dca580c2a14b55200e784d157207b4d
 // &sort_by=popularity.desc
