@@ -45,12 +45,12 @@ const HeroBanner = () => {
 
       <ContentWrapper>
         <div className="heroBannerContent">
-          <span className="title">Welcome</span>
-          <span className="subTitle">Explore movies and TV movies.</span>
+          <span className="title">MovieFlix</span>
+          <span className="subTitle">Explore movies.</span>
           <div className="searchInput">
             <input
               type="text"
-              placeholder="Search for a movie or tv show..."
+              placeholder="Search for any movie ..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               onKeyUp={searchQueryHandler}
