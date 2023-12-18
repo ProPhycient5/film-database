@@ -21,10 +21,11 @@ const arrayToString = (arr) => {
 const MovieDisplay = () => {
   const { optedGenres } = useSelector((state) => state.home);
   const dispatch = useDispatch();
-  console.log("optedGenres_in_movie", optedGenres);
-  const [data, setData] = useState(null);
   const [year, setYear] = useState(2012);
   const [loading, setLoading] = useState(false);
+  const [finalData, setFinalData] = useState({});
+
+  console.log("finalData_moviedisplay", finalData);
   let finalUrl =
     optedGenres?.length > 0
       ? `/discover/movie?sort_by=popularity.des&vote_count.gte=100&primary_release_year=${year}&with_genres=${arrayToString(
@@ -36,7 +37,9 @@ const MovieDisplay = () => {
     setLoading(true);
     try {
       const res = await fetchDataFromApi(finalUrl);
-      setData(res?.data);
+      let tempData = { ...finalData };
+      tempData[year] = res?.data;
+      setFinalData(tempData);
       setYear((prev) => prev + 1);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -48,13 +51,10 @@ const MovieDisplay = () => {
   const fetchNextPageData = async () => {
     try {
       const res = await fetchDataFromApi(finalUrl);
-      if (data?.results) {
-        setData({
-          ...data,
-          results: [...data?.results, ...res?.data?.results],
-        });
-      } else {
-        setData(res?.data);
+      if (res) {
+        let tempData = { ...finalData };
+        tempData[year] = res?.data;
+        setFinalData(tempData);
       }
       setYear((prev) => prev + 1);
     } catch (error) {
@@ -76,23 +76,26 @@ const MovieDisplay = () => {
       {loading && <Spinner initial={true} />}
       {!loading && (
         <ContentWrapper>
-          {data?.results?.length > 0 && (
-            <>
-              {/* <div>{year}</div> */}
-              <InfiniteScroll
-                className="content"
-                dataLength={data?.results?.length || []}
-                next={fetchNextPageData}
-                hasMore={year <= currentYear}
-                loader={<Spinner />}
-              >
-                {data?.results.map((item, index) => {
-                  if (item.media_type === "person") return;
-                  return <MovieCard key={index} data={item} />;
-                })}
-              </InfiniteScroll>
-            </>
-          )}
+          {Object.keys(finalData)?.length > 0 &&
+            Object.entries(finalData).map(([k, value]) => {
+              return (
+                <>
+                  <div className="year-text">{k}</div>
+                  <InfiniteScroll
+                    className="content"
+                    dataLength={value?.results?.length || []}
+                    next={fetchNextPageData}
+                    hasMore={year <= currentYear}
+                    loader={<Spinner />}
+                  >
+                    {value?.results.map((item, index) => {
+                      if (item.media_type === "person") return;
+                      return <MovieCard key={index} data={item} />;
+                    })}
+                  </InfiniteScroll>
+                </>
+              );
+            })}
         </ContentWrapper>
       )}
     </div>
